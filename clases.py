@@ -3,10 +3,11 @@ import openpyxl
 from datetime import datetime as dt, timedelta
 
 class Producto(ABC):
-    def __init__(self, Categoria, Marca, imei,  stock):
+    def __init__(self, Categoria, Marca, imei, id_producto,  stock):
         self.Cat = Categoria
         self.Ma = Marca
         self.imei = imei
+        self.id_producto = id_producto
         self.stock = stock
         
     @abstractmethod
@@ -21,8 +22,8 @@ class Garantia:
         pass
 
 class Celular(Producto):
-    def __init__(self, Categoria, Marca, imei,  stock, procesador, ram, c_almacenamiento, modelo, precio):
-        super().__init__(Categoria, Marca, imei,  stock)
+    def __init__(self, Categoria, Marca, imei, id_producto,  stock, procesador, ram, c_almacenamiento, modelo, precio):
+        super().__init__(Categoria, Marca, imei, id_producto,  stock)
         self.procesador = procesador
         self.ram = ram
         self.c_alm = c_almacenamiento
@@ -35,8 +36,8 @@ class Celular(Producto):
         
         
 class Laptop(Producto):
-    def __init__(self, Categoria, Marca, imei, stock, procesador, ram, t_grafica, modelo, precio, t_pantalla, disco):
-        super().__init__(Categoria, Marca, imei, stock )
+    def __init__(self, Categoria, Marca, imei, id_producto, stock, procesador, ram, t_grafica, modelo, precio, t_pantalla, disco):
+        super().__init__(Categoria, Marca, imei, id_producto, stock )
         self.procesador = procesador
         self.ram = ram
         self.t_grafica = t_grafica
