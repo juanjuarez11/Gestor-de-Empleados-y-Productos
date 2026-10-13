@@ -139,4 +139,3 @@ class Administradores:
                 print(f"Ha ocurrido un error: {e}")
 
 admin = Administradores()
-admin.Busqueda_actualizacion()

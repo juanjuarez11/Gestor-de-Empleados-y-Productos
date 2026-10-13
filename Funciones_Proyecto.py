@@ -149,80 +149,87 @@ def validar_empleado():
     try:
         with open("credenciales.json", "r") as archivo:
             lista_empleados = json.load(archivo)
-    except FileNotFoundError:
-        print('ERROR: El registro de empleados no existe!!!')
-    except Exception:
-        print('Error: Ha ocurrido un error inesperado!!!')
-        
-    intentos_nombre = 3
-    acceso_concedido = False
+            
+            intentos_nombre = 3
 
-    while intentos_nombre > 0:
-        nombre = validar_nombre("Ingrese su nombre y apellido: ")
-        nombre_encontrado = None
-        for i in lista_empleados:
-            if nombre == i["nombre"]:
-                nombre_encontrado = i
-                break
-        if nombre_encontrado is not None and nombre_encontrado['cargo'] == 'supervisor':
-            print(f"Nombre Encontrado: {nombre}")
-            intentos_carnet = 3
-            while intentos_carnet > 0:
-                try:
-                    carnet = input("Por favor, Ingrese su carnet: ")
-                    if str(carnet) == str(nombre_encontrado["carnet"]):
-                        print("CARNET CORRECTO. INICIANDO SESIÓN....")
-                        acceso_concedido = True
+            while intentos_nombre > 0:
+                nombre = input("Ingrese su nombre y apellido: ")
+                nombre_encontrado = None
+                
+                for i in lista_empleados:
+                    if nombre == i["nombre"]:
+                        nombre_encontrado = i
                         break
-                    else:
-                        intentos_carnet-=1
-                        print(f"CARNET INCORRECTO. Intentos restantes: {intentos_carnet}")
-                except TypeError:
-                    print("Carnet no reconocido")
 
-            if acceso_concedido:
-                return True
-        elif nombre_encontrado == None:    
-            intentos_nombre -= 1
-            print(f"ERROR: {nombre} no está en la lista de empleados o no es supervisor. Intentos restantes: {intentos_nombre}")
-        elif nombre_encontrado :
-            pass
+                if nombre_encontrado is not None:
+                    print(f"Nombre Encontrado: {nombre}")
+                    intentos_carnet = 3
+
+                    while intentos_carnet > 0:
+                        carnet = input("Por favor, Ingrese su carnet: ")
+                        if str(carnet) == str(nombre_encontrado["carnet"]):
+                            print("CARNET CORRECTO. INICIANDO SESIÓN....")
+                            return True
+                        else:
+                            intentos_carnet-=1
+                            print(f"CARNET INCORRECTO. Intento/os restantes: {intentos_carnet}")
+
+                    print("Se han agotado los intentos de para ingresar correctamente el carnet.")
+                    return False
+                
+                else:
+                    intentos_nombre -= 1
+                    print(f"ERROR: {nombre} no está en la lista de empleados. Intento/os restantes: {intentos_nombre}")
+
+            print("Se han agotado los intentos de para ingresar correctamente el nombre.")
+            return False
+    except Exception as e:
+        print(f"Error: {e}")
+        return False
 #____________________________________________________________________________________________________________________________
 def validar_admin():
     try:
-        with open(f"administrador.json", "r") as archivo:
+        with open("administrador.json", "r") as archivo:
             lista_administradores = json.load(archivo)
-    except FileNotFoundError:
-        print('ERROR: El registro de administradores no existe!!!')
-        
-    intentos_username = 3
-    acceso_concedido = False
+            
+        intentos_username = 3
 
-    while intentos_username > 0:
-        username = input("Ingrese su nombre de usuario: ")
-        username_encontrado = None
-        for i in lista_administradores:
-            if username == i["username"]:
-                username_encontrado = i
-                break
-        if username_encontrado is not None:
-            print(f"Usuario Encontrado: {username}")
-            intentos_password = 3
-            while intentos_password > 0:
-                password = maskpass.askpass(prompt="Por favor, Ingrese su contraseña: ", mask='●')
-                if str(password) == str(username_encontrado["password"]):
-                    print("INICIANDO SESIÓN....")
-                    
-                    acceso_concedido = True
+        while intentos_username > 0:
+            username = input("Ingrese su nombre de usuario: ")
+            username_encontrado = None
+            
+            for i in lista_administradores:
+                if username == i["username"]:
+                    username_encontrado = i
                     break
-                else:
-                    intentos_password-=1
-                    print(f"CONTRASEÑA INCORRECTA. Intentos restantes: {intentos_password}")
-            if acceso_concedido:
-                break
-        else:
-            intentos_username -= 1
-            print(f"ERROR: {username} no está en la lista de empleados. Intentos restantes: {intentos_username}")
+
+
+            if username_encontrado is not None:
+                print(f"Usuario Encontrado: {username}")
+                intentos_password = 3
+
+                while intentos_password > 0:
+                    password = input("Por favor, Ingrese su contraseña: ")
+                    if str(password) == str(username_encontrado["password"]):
+                        print("CONTRASEÑA CORRECTA. INICIANDO SESIÓN....")
+                        return True  
+                    else:
+                        intentos_password -= 1
+                        print(f"CONTRASEÑA INCORRECTA. Intento/os restantes: {intentos_password}")
+                
+                print("Se han agotado los intentos de contraseña.")
+                return False
+            
+            else:
+                intentos_username -= 1
+                print(f"ERROR: {username} no está en la lista de administradores. Intento/os restantes: {intentos_username}")
+        
+        print("Se han agotado los intentos de usuario.")
+        return False
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return False
 #____________________________________________________________________________________________________________________________
 def bloqueo():
     
