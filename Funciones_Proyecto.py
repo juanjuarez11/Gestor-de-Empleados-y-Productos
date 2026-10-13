@@ -224,15 +224,4 @@ def validar_admin():
             intentos_username -= 1
             print(f"ERROR: {username} no está en la lista de empleados. Intentos restantes: {intentos_username}")
 #____________________________________________________________________________________________________________________________
-def bloqueo():
-    
-    try:
-        with open('t_bloqueo.txt' , 'r') as tb:
-            t_bloqueo = int(tb)
-    except FileNotFoundError:
-        print('Error: Archivo de bloqueo no encontrado!!!')
-    except Exception:
-        print('Error en general en el bloqueo!!!')
-        
-    tiempo_actual = time.time()
     
