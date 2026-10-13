@@ -1,4 +1,5 @@
 from principal_pi import ejecutar_proceso
+from Gestion_de_personal import admin
 def menu():
     res = ejecutar_proceso()
     print("---BIENVENIDO AL SISTEMA---")
@@ -12,11 +13,11 @@ def menu():
             opcion = int(input("Escoja una opción (1-4): "))
             match opcion:
                 case 1:
-                    pass
+                    admin.Busqueda_actualizacion()
                 case 2:
-                    pass
+                    admin.Alta_integ()
                 case 3:
-                    pass
+                    admin.Baja_empleado()
                 case 4:
                     print("Saliendo del sistema...")
                     break
