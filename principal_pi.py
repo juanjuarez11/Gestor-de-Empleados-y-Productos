@@ -7,7 +7,10 @@ def ejecutar_proceso():
 
     try:
         while True:
-            res = input("¿Está tratando de iniciar sesión como Empleado o como Administrador?: ").strip().lower()
+            print("1. Iniciar como Administrador.")
+            print("2. Iniciar como Empleado.")
+            print("3. Cerrar sistema.")
+            res = input("Ingrese una opción (administrador/empleado/cerrar): ").strip().lower()
             
             if not res:
                 print("Error. Debe escoger una respuesta.\n")
@@ -27,6 +30,10 @@ def ejecutar_proceso():
                 else:
                     print("No se pudo iniciar sesión como administrador. Intente nuevamente.\n")
                     
+            elif res == "cerrar":
+                print("Cerrando sistema...")
+                break
+
             else:
                 print("Opción no válida. Por favor escriba 'empleado' o 'administrador'.\n")
 
