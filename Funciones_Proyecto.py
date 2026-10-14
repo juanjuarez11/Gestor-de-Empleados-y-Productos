@@ -209,7 +209,7 @@ def validar_admin():
                 intentos_password = 3
 
                 while intentos_password > 0:
-                    password = input("Por favor, Ingrese su contraseña: ")
+                    password = maskpass.askpass(prompt="Por favor, Ingrese su contraseña: ",mask="●")
                     if str(password) == str(username_encontrado["password"]):
                         print("CONTRASEÑA CORRECTA. INICIANDO SESIÓN....")
                         return True  
